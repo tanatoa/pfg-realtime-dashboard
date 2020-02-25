@@ -2,7 +2,7 @@ var taskrouterDashboard = new Vue({
   el: '#taskrouterDashboard',
   data: {
     headerMessage: 'TaskRouter Real-Time Dashboard',
-    loggedUser: "ameer@twilio.com",
+    loggedUser: "hayden.tana@pfgaustralia.com.au",
     userAuthenticated: false,
     syncStatus: "Disconnected",
     totalTasks: 0,
@@ -85,11 +85,9 @@ var taskrouterDashboard = new Vue({
           for (var i in tasks) {
             task = {};
             task['taskSid'] = tasks[i]['TaskSid'];
-            task['from'] = tasks[i]['name'].charAt(0).toUpperCase() + tasks[i]['name'].slice(1);
-            task['channel'] = tasks[i]['channel'].charAt(0).toUpperCase() + tasks[i]['channel'].slice(1);
-            //task['team'] =  tasks[i]['team'].charAt(0).toUpperCase() + tasks[i]['team'].slice(1);
-            task['team'] = tasks[i]['team']  ? tasks[i]['team'].charAt(0).toUpperCase() + tasks[i]['team'].slice(1) : 'Support';
-            //task['team'] =  tasks[i]['team'].charAt(0).toUpperCase() + tasks[i]['team'].slice(1);
+            task['from'] = tasks[i]['name'] ? tasks[i]['name'].charAt(0).toUpperCase() + tasks[i]['name'].slice(1) : 'Unknown name';
+            task['channel'] = tasks[i]['channel'] ? tasks[i]['channel'].charAt(0).toUpperCase() + tasks[i]['channel'].slice(1) : 'Unkown channel';
+            task['team'] = tasks[i]['team'] ? tasks[i]['team'].charAt(0).toUpperCase() + tasks[i]['team'].slice(1) : 'Support';
             task['recordingUrl'] = tasks[i]['RecordingUrl'];
             taskSid = task['taskSid'];
             task['agentName'] = tasks[i]['WorkerName'];
