@@ -95,7 +95,7 @@
                     <div class="ui mini black statistic segment">
                       <div class="ui top attached label">Agents</div>
                       <div class="value">
-                        {{currentWorkerActivity['idleWorkers']}}
+                        {{currentWorkerActivity['availableWorkers']}}
                       </div>
                       <div class="label">
                         Available
@@ -104,19 +104,19 @@
                     <div class="ui mini yellow statistic segment">
                       <div class="ui top attached label">Agents</div>
                       <div class="value">
-                        {{currentWorkerActivity['reservedWorkers']}}
+                        {{currentWorkerActivity['unavailableWorkers']}}
                       </div>
                       <div class="label">
-                        Reserved
+                        Un-Available
                       </div>
                     </div>
                     <div class="ui mini red statistic segment">
                       <div class="ui top attached label">Agents</div>
                       <div class="value">
-                        {{currentWorkerActivity['busyWorkers']}}
+                        {{currentWorkerActivity['offlineWorkers']}}
                       </div>
                       <div class="label">
-                        Un-Available
+                        Offline
                       </div>
                     </div>
               </div>
