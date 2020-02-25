@@ -16,9 +16,8 @@ var taskrouterDashboard = new Vue({
     totalWorkers: 0,
     currentWorkerActivity: {
       offlineWorkers: 0,
-      idleWorkers: 0,
-      reservedWorkers: 0,
-      busyWorkers: 0
+      availableWorkers: 0,
+      unavailableWorkers: 0
     },
     avgTaskAcceptanceTime: "0",
     missedSLA: false,
@@ -155,9 +154,8 @@ var taskrouterDashboard = new Vue({
         }
         this.totalWorkers = data['totalWorkers'];
         this.currentWorkerActivity['offlineWorkers'] = data['activityOfflineWorkers'];
-        this.currentWorkerActivity['idleWorkers'] = data['activityIdleWorkers'];
-        this.currentWorkerActivity['reservedWorkers'] = data['activityReservedWorkers'];
-        this.currentWorkerActivity['busyWorkers'] = data['activityBusyWorkers'];
+        this.currentWorkerActivity['availableWorkers'] = data['activityAvailableWorkers'];
+        this.currentWorkerActivity['unavailableWorkers'] = data['activityUnavailableWorkers'];
       }
     },
     serverSideStatsInit: function() {
