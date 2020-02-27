@@ -138,14 +138,35 @@
                     <tr v-for="task,id of taskList">
                       <td>{{task.from}}</td>
                       <td class="center aligned">
-                          channel
+                        <img v-if="task.channel == 'Phone'" class="ui centered middle aligned mini image" src="/static/images/phone.png">
+                        <img v-else-if="task.channel == 'Chat'" class="ui centered middle aligned mini image" src="/static/images/chat.png">
+                        <img v-else-if="task.channel == 'Video'" class="ui centered middle aligned mini image" src="/static/images/video.png">
+                        <div v-else>
+                          {{task.channel}}
+                        </div>
                       </td>
-                      <td>team</td>
-                      <td>agentname</td>
-                      <td class="center aligned">priority</td>
+                      <td>{{task.team}}</td>
+                      <td>{{task.agentName}}</td>
+                      <td class="center aligned">{{task.priority}}</td>
                       <td>
+                        <el-steps :space="100" :active=taskCurrentStep(task.taskStatus) title="Task Status">
+                            <el-step title="Created"></el-step>
+                            <el-step title="Reserved"></el-step>
+                            <el-step title="In-Progress"></el-step>
+                            <el-step :status="task.successStatus" title="Completed"></el-step>
+                            <el-step v-if="task.taskStatus == 'canceled'"  :status="task.cancelStatus" title="Canceled"></el-step>
+                        </el-steps>
                       </td>
                       <td class="center aligned">
+                          <audio ref="callRecording" :src="task.recordingUrl"></audio>
+                        <div v-if="displayRecording(task)">
+                          <button class="ui small icon button" v-on:click="playAudio(id)" data-tooltip="Call Recording (via recording callback)" data-position="top right" data-inverted="" >
+                            <i class="small play icon"></i>
+                          </button>
+                          <button class="ui small icon button" v-on:click="pauseAudio(id)">
+                            <i class="small pause icon"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                 </tbody>
