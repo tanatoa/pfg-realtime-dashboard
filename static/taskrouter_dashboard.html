@@ -135,7 +135,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="task,id of taskList">
+                    <tr v-for="(task,id) in taskList">
                       <td>{{task.from}}</td>
                       <td class="center aligned">
                         <img v-if="task.channel == 'Phone'" class="ui centered middle aligned mini image" src="/static/images/phone.png">
