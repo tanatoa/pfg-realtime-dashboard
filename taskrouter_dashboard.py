@@ -36,7 +36,7 @@ def sync_taskrouter_statistics():
     # Get TaskRouter Statistics
     stats = {}
     # Get Workspace related stats from last 60 minutes
-    statistics = client.taskrouter.workspaces(twilio_workspace_sid).statistics().fetch(minutes=60)
+    statistics = client.taskrouter.workspaces(twilio_workspace_sid).statistics().fetch(60)
     stats['totalTasks'] = statistics.realtime['total_tasks']
     stats['totalWorkers'] = statistics.realtime['total_workers']
     task_statuses = statistics.realtime['tasks_by_status']
@@ -50,8 +50,8 @@ def sync_taskrouter_statistics():
             stats['activityOfflineWorkers'] = x['workers']
         elif (x['friendly_name'] == 'Available'):
             stats['activityAvailableWorkers'] = x['workers']
-        elif (x['friendly_name'] == 'Unavailable'):
-            stats['activityUnavailableWorkers'] = x['workers']
+        elif (x['friendly_name'] == 'Reserved'):
+            stats['activityReservedWorkers'] = x['workers']
         elif (x['friendly_name'] == 'Busy'):
             stats['activityBusyWorkers'] = x['workers']
 
@@ -105,8 +105,8 @@ def taskrouter_tasks():
         except:
             task_model['WorkerName'] = ""
         # Workaround to Video channel task missing team name
-        if (task_model['channel'] == 'video'):
-            task_model['team'] = 'Support'
+        #if (task_model['channel'] == 'video'):
+            #task_model['team'] = 'Support'
 
         # Get previously stored recording url
         try:
