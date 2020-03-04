@@ -1,8 +1,8 @@
 var taskrouterDashboard = new Vue({
   el: '#taskrouterDashboard',
   data: {
-    headerMessage: 'TaskRouter Real-Time Dashboard',
-    loggedUser: "ameer@twilio.com",
+    headerMessage: 'TaskRouter RealTime Dashboard',
+    loggedUser: "aelharda@twilio.com",
     userAuthenticated: false,
     syncStatus: "Disconnected",
     totalTasks: 0,
@@ -16,8 +16,9 @@ var taskrouterDashboard = new Vue({
     totalWorkers: 0,
     currentWorkerActivity: {
       offlineWorkers: 0,
-      availableWorkers: 0,
-      unavailableWorkers: 0
+      idleWorkers: 0,
+      reservedWorkers: 0,
+      busyWorkers: 0
     },
     avgTaskAcceptanceTime: "0",
     missedSLA: false,
@@ -39,7 +40,7 @@ var taskrouterDashboard = new Vue({
   },
   methods: {
     displayRecording: function (task) {
-      if (task.taskStatus == 'completed' && task.channel == 'Phone' && (task.recordingUrl).length > 1) {
+      if (task.taskStatus == 'completed' && task.channel == 'voice' && (task.recordingUrl).length > 1) {
         return true;
       }
       else {
@@ -86,13 +87,12 @@ var taskrouterDashboard = new Vue({
             task = {};
             task['taskSid'] = tasks[i]['TaskSid'];
             task['from'] = tasks[i]['name'].charAt(0).toUpperCase() + tasks[i]['name'].slice(1);
-            task['channel'] = tasks[i]['channel'].charAt(0).toUpperCase() + tasks[i]['channel'].slice(1);
+            task['channel'] = tasks[i]['ChannelUniqueName'];
             //task['team'] =  tasks[i]['team'].charAt(0).toUpperCase() + tasks[i]['team'].slice(1);
             task['team'] = tasks[i]['team']  ? tasks[i]['team'].charAt(0).toUpperCase() + tasks[i]['team'].slice(1) : 'Support';
-            //task['team'] =  tasks[i]['team'].charAt(0).toUpperCase() + tasks[i]['team'].slice(1);
             task['recordingUrl'] = tasks[i]['RecordingUrl'];
             taskSid = task['taskSid'];
-            task['agentName'] = tasks[i]['WorkerName'];
+            task['agentName'] = tasks[i]['WorkerName'].charAt(0).toUpperCase() + tasks[i]['WorkerName'].slice(1);
             task['priority'] = tasks[i]['Priority'];
             task['taskStatus'] = tasks[i]['TaskStatus'];
             if (task['taskStatus'] == 'completed') {
@@ -154,8 +154,9 @@ var taskrouterDashboard = new Vue({
         }
         this.totalWorkers = data['totalWorkers'];
         this.currentWorkerActivity['offlineWorkers'] = data['activityOfflineWorkers'];
-        this.currentWorkerActivity['availableWorkers'] = data['activityAvailableWorkers'];
-        this.currentWorkerActivity['unavailableWorkers'] = data['activityUnavailableWorkers'];
+        this.currentWorkerActivity['reservedWorkers'] = data['activityReservedWorkers'];
+        this.currentWorkerActivity['busyWorkers'] = data['activityBusyWorkers'];
+        this.currentWorkerActivity['availableWorkers'] = data['activityAvailableWorkers'] - data['assignedTasks'];
       }
     },
     serverSideStatsInit: function() {
