@@ -104,10 +104,10 @@
                     <div class="ui mini yellow statistic segment">
                       <div class="ui top attached label">Agents</div>
                       <div class="value">
-                        {{currentWorkerActivity['unavailableWorkers']}}
+                        {{currentTaskStatus['assigned']}}
                       </div>
                       <div class="label">
-                        Un-Available
+                        Reserved
                       </div>
                     </div>
                     <div class="ui mini red statistic segment">
@@ -116,7 +116,7 @@
                         {{currentWorkerActivity['offlineWorkers']}}
                       </div>
                       <div class="label">
-                        Offline
+                        Un-Available
                       </div>
                     </div>
               </div>
@@ -138,8 +138,8 @@
                     <tr v-for="task,id of taskList">
                       <td>{{task.from}}</td>
                       <td class="center aligned">
-                        <img v-if="task.channel == 'Phone'" class="ui centered middle aligned mini image" src="/static/images/phone.png">
-                        <img v-else-if="task.channel == 'Chat'" class="ui centered middle aligned mini image" src="/static/images/chat.png">
+                        <img v-if="task.TaskChannelUniqueName == 'voice'" class="ui centered middle aligned mini image" src="/static/images/phone.png">
+                        <img v-else-if="task.TaskChannelUniqueName == 'chat'" class="ui centered middle aligned mini image" src="/static/images/chat.png">
                         <img v-else-if="task.channel == 'Video'" class="ui centered middle aligned mini image" src="/static/images/video.png">
                         <div v-else>
                           {{task.channel}}
