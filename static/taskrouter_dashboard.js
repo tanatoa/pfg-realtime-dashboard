@@ -10,6 +10,7 @@ var taskrouterDashboard = new Vue({
       pending: 0,
       reserved: 0,
       assigned: 0,
+      wrapping: 0,
       completed: 0,
       canceled: 0
     },
@@ -34,7 +35,8 @@ var taskrouterDashboard = new Vue({
       "pending": 1,
       "reserved": 2,
       "assigned": 3,
-      "completed": 4
+      "wrapping": 4,
+      "completed": 5
     }
   },
   methods: {
@@ -133,6 +135,7 @@ var taskrouterDashboard = new Vue({
         this.currentTaskStatus['pending'] = data['pendingTasks'];
         this.currentTaskStatus['reserved'] = data['reservedTasks'];
         this.currentTaskStatus['assigned'] = data['assignedTasks'];
+        this.currentTaskStatus['wrapping'] = data['wrappingTasks'];
         if (data['completedTasks']) {
           this.currentTaskStatus['completed'] = data['completedTasks'];
         } else {
