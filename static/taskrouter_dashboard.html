@@ -157,16 +157,17 @@
                       <td>{{task.team}}</td>
                       <td>{{task.agentName}}</td>
                       <td class="center aligned">{{task.priority}}</td>
-                      <td>
+                      <td>steps <!-- 
                         <el-steps :space="100" :active=taskCurrentStep(task.taskStatus) title="Task Status">
                             <el-step title="Created"></el-step>
                             <el-step title="Reserved"></el-step>
                             <el-step title="In-Progress"></el-step>
                             <el-step :status="task.successStatus" title="Completed"></el-step>
                             <el-step v-if="task.taskStatus == 'canceled'"  :status="task.cancelStatus" title="Canceled"></el-step>
-                        </el-steps>
+                        </el-steps> -->
                       </td>
-                      <td class="center aligned">
+                      <td class="center aligned">Recording <!-- 
+                          
                           <audio ref="callRecording" :src="task.recordingUrl"></audio>
                         <div v-if="displayRecording(task)">
                           <button class="ui small icon button" v-on:click="playAudio(id)" data-tooltip="Call Recording (via recording callback)" data-position="top right" data-inverted="" >
@@ -175,7 +176,7 @@
                           <button class="ui small icon button" v-on:click="pauseAudio(id)">
                             <i class="small pause icon"></i>
                           </button>
-                        </div>
+                        </div>-->
                       </td>
                     </tr>
                 </tbody>
